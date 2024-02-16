@@ -1,0 +1,16 @@
+# Maven
+target/
+
+# Gradle
+build/
+.gradle/
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+# VS Code
+.vscode/
+
+tmp/
+*.log
