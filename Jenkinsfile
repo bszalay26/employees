@@ -1,9 +1,9 @@
 pipeline {
     environment {
         DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
-        VERSION_NUMBER = sh (
+        VERSION_NUMBER = "1.2.3" /*sh (
                 script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
-                returndStdout: true).trim()
+                returndStdout: true).trim()*/
 //        IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
     }
 
@@ -18,6 +18,7 @@ pipeline {
         stage('Commit') {
             steps {
                 echo "Version number: ${env.VERSION_NUMBER}"
+                echo "Version number: ${VERSION_NUMBER}"
                 echo "Commit stage"
                 //sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
