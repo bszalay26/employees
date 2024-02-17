@@ -17,7 +17,7 @@ pipeline {
     stages {
         stage('Commit') {
             steps {
-                echo "Version number: ${VERSION_NUMBER}"
+                echo "Version number: ${env.VERSION_NUMBER}"
                 echo "Commit stage"
                 //sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
