@@ -4,9 +4,6 @@ pipeline {
         VERSION_NUMBER = sh (
                 script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
                 returndStdout: true).trim()
-        script {
-            echo "Version number: ${VERSION_NUMBER}"
-        }
         IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
     }
 
@@ -20,6 +17,7 @@ pipeline {
     stages {
         stage('Commit') {
             steps {
+                echo "Version number: ${VERSION_NUMBER}"
                 echo "Commit stage"
                 sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
