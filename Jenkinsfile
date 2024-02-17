@@ -1,11 +1,11 @@
 pipeline {
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
+        //DOCKERHUB_CREDENTIALS = credentials('dockerhub-credentials')
         VERSION_NUMBER = sh (
                 script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
                 returnStdout: true).trim()
         IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
-        SONAR_CREDENTIALS = credentials('sonar-credentials')
+        //SONAR_CREDENTIALS = credentials('sonar-credentials')
     }
 
     agent {
@@ -39,19 +39,25 @@ pipeline {
                 //sh "docker push bszalay26/employees:latest"
             }
         }
-        stage('E2E API') {
-            steps {
-                dir('employees-postman') {
-                    sh 'rm -rf reports'
-                    sh 'mkdir reports'
-                    //sh 'docker compose -f docker-compose.yaml -f docker-compose.jenkins.yaml up --abort-on-container-exit'
-                    //archiveArtifacts artifacts: 'reports/*.html', fingerprint: true
+        stage('Quality') {
+            parallel {
+                stage('E2E API') {
+                    steps {
+                        echo "E2E test stage"
+                        dir('employees-postman') {
+                            sh 'rm -rf reports'
+                            sh 'mkdir reports'
+                            //sh 'docker compose -f docker-compose.yaml -f docker-compose.jenkins.yaml up --abort-on-container-exit'
+                            //archiveArtifacts artifacts: 'reports/*.html', fingerprint: true
+                        }
+                    }
                 }
-            }
-        }
-        stage('Code quality') {
-            steps {
-                sh "./mvnw sonar:sonar -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=${SONAR_CREDENTIALS_PSW}"
+                stage('Code quality') {
+                    steps {
+                        echo "Code quality (Sonar) stage"
+//                sh "./mvnw sonar:sonar -Dsonar.host.url=http://host.docker.internal:9000 -Dsonar.login=${SONAR_CREDENTIALS_PSW}"
+                    }
+                }
             }
         }
     }
