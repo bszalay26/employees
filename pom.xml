@@ -12,7 +12,7 @@
 
     <groupId>training</groupId>
     <artifactId>employees-maven</artifactId>
-    <version>1.0.0-${build.number}</version>
+    <version>${revision}</version>
 
     <properties>
         <mapstruct.version>1.5.5.Final</mapstruct.version>
@@ -27,6 +27,7 @@
         </sonar.junit.reportPaths>
 
         <build.number>unknown</build.number>
+        <revision>1.0.0-${build.number}</revision>
     </properties>
 
     <dependencies>
