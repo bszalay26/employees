@@ -15,4 +15,4 @@ services:
 volumes:
   jenkins-data:
     external: true
-    name: jenkins_data
+    name: jenkins-data
