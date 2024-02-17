@@ -22,7 +22,7 @@ pipeline {
                 echo "Commit stage"
                 script {
                     ver_num = sh (
-                    script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
+                    script: "./mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout",
                     returndStdout: true).trim()
                     echo "Another version number: ${ver_num}"
                 }
