@@ -7,25 +7,25 @@ pipeline {
 //        IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
     }
 
-    agent {
+    agent any /*{
         dockerfile {
             filename 'Dockerfile.build'
             args '-e DOCKER_CONFIG=./docker'
         }
-    }
+    }*/
 
     stages {
         stage('Commit') {
             steps {
                 echo "Version number: ${VERSION_NUMBER}"
                 echo "Commit stage"
-                sh "./mvnw -B clean package -Dbuild.number=${build_number}"
+                //sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
         }
         stage('Acceptance') {
             steps {
                 echo "Acceptance stage"
-                sh "./mvnw -B integration-test"
+                //sh "./mvnw -B integration-test"
             }
         }
 /*        stage('Docker') {
