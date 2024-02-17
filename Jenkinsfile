@@ -9,7 +9,7 @@ pipeline {
         stage('Commit') {
             steps {
                 echo "Commit stage"
-                sh './mvnw -B package'
+                sh "./mvnw -B package -Dbuild.number=${build_number}"
             }
         }
         stage('Acceptance') {
