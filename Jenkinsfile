@@ -28,7 +28,7 @@ pipeline {
                 sh "./mvnw -B integration-test"
             }
         }
-        stage('Docker') {
+/*        stage('Docker') {
             steps {
                 sh "docker build -f Dockerfile.layered -t ${IMAGE_NAME} ."
                 sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u=${DOCKERHUB_CREDENTIALS_USR} --password-stdin"
@@ -36,6 +36,6 @@ pipeline {
                 sh "docker tag ${IMAGE_NAME} bszalay26/employees:latest"
                 sh "docker push bszalay26/employees:latest"
             }
-        }
+        }*/
     }
 }
