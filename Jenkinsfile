@@ -4,7 +4,7 @@ pipeline {
         VERSION_NUMBER = sh (
                 script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
                 returndStdout: true).trim()
-        IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
+//        IMAGE_NAME = "bszalay26/employees:${VERSION_NUMBER}"
     }
 
     agent {
