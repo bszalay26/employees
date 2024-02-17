@@ -20,6 +20,12 @@ pipeline {
                 echo "Version number: ${env.VERSION_NUMBER}"
                 echo "Version number: ${VERSION_NUMBER}"
                 echo "Commit stage"
+                script {
+                    ver_num = sh (
+                    script: './mvnw help:evaluate -Dexpression=project.version -Dbuild.number=${BUILD_NUMBER} -q -DforceStdout',
+                    returndStdout: true).trim()
+                    echo "Another version number: ${ver_num}"
+                }
                 //sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
         }
