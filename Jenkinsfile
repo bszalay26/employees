@@ -20,7 +20,7 @@ pipeline {
             steps {
                 echo "Version number: ${VERSION_NUMBER}"
                 echo "Commit stage"
-                //sh "./mvnw -B clean package -Dbuild.number=${build_number}"
+                sh "./mvnw -B clean package -Dbuild.number=${build_number}"
             }
         }
         stage('Acceptance') {
