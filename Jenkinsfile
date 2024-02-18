@@ -37,6 +37,17 @@ pipeline {
                 //sh "docker push ${IMAGE_NAME}"
                 //sh "docker tag ${IMAGE_NAME} bszalay26/employees:latest"
                 //sh "docker push bszalay26/employees:latest"
+
+                script {
+                    def isDeployAllowed = input(message: 'Deploy?', parameters: [
+                            [$class: 'ChoiceParameterDefinition', choices: "Yes\nNo", name: 'deploy'],
+                    ])
+                    print("$isDeployAllowed")
+                    if (isDeployAllowed == 'No') {
+                        currentBuild.result = 'ABORTED'
+                        error('Manual stop.')
+                    }
+                }
             }
         }
         stage('Quality') {
